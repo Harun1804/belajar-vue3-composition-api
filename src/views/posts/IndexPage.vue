@@ -19,8 +19,9 @@
                             <tr v-for="(post, index) in posts" :key="index">
                                 <td>{{ post.title }}</td>
                                 <td>{{ post.body }}</td>
-                                <td class="text-center">
+                                <td class="text-center d-flex">
                                     <router-link :to="{name: 'posts.edit', params:{id: post.id }}" class="btn btn-sm btn-primary me-2">EDIT</router-link>
+                                    <button @click.prevent="postDelete(post.id)" class="btn btn-sm btn-danger ml-1">DELETE</button>
                                 </td>
                             </tr>
                         </tbody>
@@ -53,9 +54,20 @@ export default {
             })
         }
 
+        function postDelete(id) {
+            axios.delete(`http://localhost:8000/api/blog/${id}`)
+            .then(() => {
+                getDataPosts()
+            })
+            .catch((err) => {
+                console.log(err.response.data)
+            })
+        }
+
         return {
             posts,
-            getDataPosts
+            getDataPosts,
+            postDelete
         }
     }
 }
