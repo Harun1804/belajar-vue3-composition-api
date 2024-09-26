@@ -19,7 +19,9 @@
                             <tr v-for="(post, index) in posts" :key="index">
                                 <td>{{ post.title }}</td>
                                 <td>{{ post.body }}</td>
-                                <td class="text-center"></td>
+                                <td class="text-center">
+                                    <router-link :to="{name: 'posts.edit', params:{id: post.id }}" class="btn btn-sm btn-primary me-2">EDIT</router-link>
+                                </td>
                             </tr>
                         </tbody>
                     </table>
